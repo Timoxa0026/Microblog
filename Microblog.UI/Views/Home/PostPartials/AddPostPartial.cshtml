@@ -1,0 +1,26 @@
+﻿@using Incoding.MvcContrib
+@using Microblog.Domain
+@using Microblog.Domain.Operations.Query
+@using Microblog.Domain.Operations.Command
+
+@model AddPostCommand
+
+@using (Html.When(JqueryBind.InitIncoding)
+            .OnSuccess(dsl => dsl.Self().Form.Validation.Parse())
+            .When(JqueryBind.Submit)
+            .PreventDefault()
+            .Submit()
+            .OnSuccess(dsl => dsl.Document.Reload())
+            .OnError(dsl => dsl.Self().Form.Validation.Refresh())
+            .AsHtmlAttributes()
+            .ToBeginForm(Url.Dispatcher().Push(new AddPostCommand())))
+{
+    @Html.TextAreaFor(r => r.Text)
+    
+    <div class="validation-message-add-post">
+        @Html.ValidationMessageFor(r => r.Text)
+    </div>
+    <div class="add-post-button">
+        <input type="submit" value="Опубликовать" id="add-post" />
+    </div>
+}

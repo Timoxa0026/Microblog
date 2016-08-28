@@ -1,0 +1,37 @@
+﻿@using Incoding.MvcContrib
+@using Microblog.Domain
+@model SignUpCommand
+
+<div class="form">
+    <p>
+        Регистрация
+    </p>
+    @using (Html.When(JqueryBind.InitIncoding)
+            .OnSuccess(dsl => dsl.Self().Form.Validation.Parse())
+            .When(JqueryBind.Submit)
+            .PreventDefault()
+            .Submit()
+            .OnSuccess(dsl => dsl.Document.RedirectTo("Index"))
+            .OnError(dsl => dsl.Self().Form.Validation.Refresh())
+            .AsHtmlAttributes()
+            .ToBeginForm(Url.Dispatcher().Push(new SignUpCommand())))
+    {
+        @Html.LabelFor(r => r.FirstName)
+        @Html.TextBoxFor(r => r.FirstName)
+        @Html.ValidationMessageFor(r => r.FirstName)
+        <br />
+        @Html.LabelFor(r => r.LastName)
+        @Html.TextBoxFor(r => r.LastName)
+        @Html.ValidationMessageFor(r => r.LastName)
+        <br />
+        @Html.LabelFor(r => r.Email)
+        @Html.TextBoxFor(r => r.Email)
+        @Html.ValidationMessageFor(r => r.Email)
+        <br />
+        @Html.LabelFor(r => r.Password)
+        @Html.PasswordFor(r => r.Password)
+        @Html.ValidationMessageFor(r => r.Password)
+        <br />
+        <input type="submit" value="Зарегистрироваться" />
+    }
+</div>

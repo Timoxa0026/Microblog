@@ -1,0 +1,38 @@
+﻿@using Incoding.Block.IoC
+@using Incoding.CQRS
+@using Microblog.Domain.Operations.Query
+@using Incoding.MvcContrib
+@using Microblog.Domain
+@{
+    using (var template = Html.Incoding().Template<GetAllUsersPostsQuery.Response>())
+    {
+        using (var response = template.ForEach())
+        {            
+            <div id="post">
+                <div id="date">
+                    @response.For(r => r.CreateDate)
+                </div>
+
+                <div id="author">
+                    @response.For(r => r.OwnerName)
+                </div>
+
+                <div id="text">
+                    @response.For(r => r.Text)
+                </div>
+
+                <div class="add-as-friend">
+                    @Html.Partial("~/Views/Home/PostPartials/AddAsFriendPartial.cshtml", response.For(r => r.OwnerId))
+                </div>
+
+                <div class="like">
+                    @Html.Partial("~/Views/Home/PostPartials/LikeEvaluationPartial.cshtml", response.For(r => r.Id))
+                </div>
+
+                <div class="dislike">
+                    @Html.Partial("~/Views/Home/PostPartials/DisLikeEvaluationPartial.cshtml", response.For(r => r.Id))
+                </div>
+            </div>
+        }
+    }
+}

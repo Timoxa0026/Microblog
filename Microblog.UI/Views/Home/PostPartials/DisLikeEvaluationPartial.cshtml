@@ -1,0 +1,23 @@
+﻿@using Incoding.MvcContrib
+@using Microblog.Domain.Operations.Query
+@using Microblog.Domain
+@using Microblog.Domain.Operations.Command
+
+@model string
+@using (Html.When(JqueryBind.InitIncoding)
+                        .OnSuccess(dsl => dsl.Self().Form.Validation.Parse())
+                        .When(JqueryBind.Submit)
+                        .PreventDefault()
+                        .Submit()
+                        .OnSuccess(dsl => dsl.Document.Reload())
+                        .OnError(dsl => dsl.Self().Form.Validation.Refresh())
+                        .AsHtmlAttributes()
+                        .ToBeginForm(Url.Dispatcher().Push(new AddEvaluationCommand())))
+{
+    @Html.Hidden("Like", false)
+    @Html.Hidden("DisLike", true)
+    @Html.Hidden("PostId", @Model)
+    <span>
+        <input type="submit" value="Не нравиться" />
+    </span>
+}

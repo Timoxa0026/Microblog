@@ -1,0 +1,31 @@
+@using Incoding.Block.IoC
+@using Incoding.CQRS
+@using Microblog.Domain.Operations.Query
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Request.IsAuthenticated)
+{
+    <div id="left-bar">
+        <div id="posts-filters">
+        </div>
+        <div id="contact-list">
+            <div if="friend">
+                @Html.Partial("~/Views/Home/FriendPartials/FriendsPartial.cshtml")
+            </div>
+        </div>
+    </div>
+    <div id="right-bar">
+        <div id="new-post">
+            @Html.Partial("~/Views/Home/PostPartials/AddPostPartial.cshtml")
+        </div>
+        <div id="posts">
+            @Html.Partial("~/Views/Home/PostPartials/PostPage.cshtml")
+        </div>
+    </div>
+}
+else
+{
+    <div class="home-page">Home Page!</div>
+}

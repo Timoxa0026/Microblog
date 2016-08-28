@@ -1,0 +1,22 @@
+﻿@using Incoding.MvcContrib
+@using Microblog.Domain.Operations.Query
+@using Microblog.Domain
+@using Microblog.Domain.Operations.Command
+
+@model string
+@using (Html.When(JqueryBind.InitIncoding)
+                        .OnSuccess(dsl => dsl.Self().Form.Validation.Parse())
+                        .When(JqueryBind.Submit)
+                        .PreventDefault()
+                        .Submit()
+                        .OnSuccess(dsl => dsl.Document.Reload())
+                        .OnError(dsl => dsl.Self().Form.Validation.Refresh())
+                        .AsHtmlAttributes()
+                        .ToBeginForm(Url.Dispatcher().Push(new AddFriendshipCommand())))
+{
+    @Html.Hidden("FriendId", @Model)
+    <br />
+    <span>
+        <input type="submit" value="Добавить в друзья" />
+    </span>
+}

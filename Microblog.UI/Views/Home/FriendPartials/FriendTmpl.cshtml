@@ -1,0 +1,22 @@
+﻿@using Incoding.Block.IoC
+@using Incoding.CQRS
+@using Microblog.Domain.Operations.Query
+@using Incoding.MvcContrib
+@using Microblog.Domain
+
+@{
+    using (var template = Html.Incoding().Template<GetFriendsQuery>())
+    {
+        using (var response = template.ForEach())
+        {
+            <div id="friend">
+                <div id="date">
+                    @response.For(r => r.FirstName)
+                </div>
+                <div id="author">
+                    @response.For(r => r.LastName)
+                </div>
+            </div>
+        }
+    }
+}

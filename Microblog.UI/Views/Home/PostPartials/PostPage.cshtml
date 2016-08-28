@@ -1,0 +1,9 @@
+﻿@using Incoding.MvcContrib
+@using Microblog.Domain
+@using Microblog.Domain.Operations.Query
+
+@(Html.When(JqueryBind.InitIncoding)
+      .Ajax(new GetAllUsersPostsQuery())
+      .OnSuccess(dsl => dsl.Self().Insert.Use(Selector.Result).WithTemplateByView("~/Views/Home/PostPartials/PostTmpl.cshtml").Html())
+      .AsHtmlAttributes()
+      .ToDiv())

@@ -1,0 +1,37 @@
+﻿@using Incoding.Block.IoC
+@using Incoding.CQRS
+@using Microblog.Domain.Operations.Query
+@using Incoding.MvcContrib
+@using Microblog.Domain
+
+@model GetCurrentUserQuery
+
+@if (Request.IsAuthenticated)
+{
+    var isAuth = IoCFactory.Instance.TryResolve<IDispatcher>().Query(new GetCurrentUserQuery());
+    var UserName = isAuth.LastName + " " + isAuth.FirstName;
+
+    <span class="auth-action">
+        @Html.ActionLink("Заявки в друзья", "RequestForFriendship", "Home")
+    </span>
+    
+    <span class="auth-user-name">
+        Вы вошли как, @UserName
+    </span>
+    <span class="auth-action">
+        @(Html.When(JqueryBind.Click)
+                  .Ajax(new SignOutCommand())
+                  .OnSuccess(dsl => dsl.Document.Reload())
+                  .AsHtmlAttributes()
+                  .ToLink("Выйти"))
+    </span>
+}
+else
+{
+    <span class="auth-action">
+        @Html.ActionLink("Регистрация", "SignUpPartial", "Home")
+    </span>
+    <span class="auth-action">
+        @Html.ActionLink("Выполнить вход", "SignInPartial", "Home")
+    </span>
+}

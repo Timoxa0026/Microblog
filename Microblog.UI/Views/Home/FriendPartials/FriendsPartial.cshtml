@@ -1,0 +1,8 @@
+﻿@using Incoding.MvcContrib
+@using Microblog.Domain.Operations.Query
+
+@(Html.When(JqueryBind.InitIncoding)
+    .Ajax(new GetFriendsQuery())
+    .OnSuccess(dsl => dsl.Self().Insert.Use(Selector.Result).WithTemplateByView("~/Views/Home/FriendPartials/FriendTmpl.cshtml").Html())
+    .AsHtmlAttributes()
+    .ToDiv())
