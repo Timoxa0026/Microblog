@@ -40,6 +40,7 @@
         {
             var post = Repository.GetById<Post>(PostId);
             var owner = Dispatcher.Query(new GetCurrentUserQuery());
+            //TODO: используй SingleOrDefault() всегда, если в бизнес-логике подразумевается единственная запись
             var evaluation = Repository.Query(whereSpecification: new Evaluation.Where.PostEvaluationByOwnerId() { OwnerId = owner.Id, PostId = this.PostId }).FirstOrDefault();
 
             if (evaluation == null)

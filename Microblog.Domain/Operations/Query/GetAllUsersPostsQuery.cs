@@ -40,7 +40,9 @@
                                  CreateDate = r.CreateDate.ToString(),
                                  OwnerName = r.Owner.FirstName + " " + r.Owner.LastName,
                                  OwnerId = r.Owner.Id
-                             }).ToList();
+                             })
+                             //TODO: OrderBy(r => r.OwnerName)
+                             .ToList();
         }
     }
 }

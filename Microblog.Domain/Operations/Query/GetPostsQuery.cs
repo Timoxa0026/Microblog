@@ -35,6 +35,8 @@
 
         protected override List<Response> ExecuteResult()
         {
+            //TODO: добавить сортировку по дате создания 
+
             return Repository.Query(whereSpecification: new Post.Where.ByOwnerId() { OwnerId = this.OwnerId})
                              .Select(r => new Response
                                           {

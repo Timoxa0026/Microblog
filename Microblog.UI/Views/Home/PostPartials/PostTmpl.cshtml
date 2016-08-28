@@ -21,6 +21,7 @@
                     @response.For(r => r.Text)
                 </div>
 
+                @*TODO: перенести весь код из Partials в Template, удалить Partials*@
                 <div class="add-as-friend">
                     @Html.Partial("~/Views/Home/PostPartials/AddAsFriendPartial.cshtml", response.For(r => r.OwnerId))
                 </div>
